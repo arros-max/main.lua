@@ -1,4 +1,4 @@
--- Whitelist de usuarios permitidos
+
 local whitelist = {
     ["CHIKIKAR4"] = true,
     ["14merisilu"] = true,
