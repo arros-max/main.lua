@@ -1,6 +1,51 @@
+local whitelist = {
+    ["CHIKIKAR4"] = true,
+    ["14merisilu"] = true,
+    ["TadeoZflip"] = true,
+    ["DRAGO9999996"] = true,
+    ["alex_917472"] = true,
+    ["Alex_9174828"] = true,
+    ["bodo3750"] = true,
+    ["bodo7912"] = true,
+    ["Fuerzaleyenda123"] = true,
+    ["LIT_colotixX"] = true,
+    ["XxMGZemXx"] = true,
+    [""] = true,
+    [""] = true,
+    [""] = true,
+    [""] = true,
+    [""] = true,
+    [""] = true,
+    [""] = true,
+    [""] = true,
+    [""] = true,
+    [""] = true,
+    [""] = true,
+    [""] = true,
+    [""] = true,
+    [""] = true,
+    [""] = true,
+    [""] = true,
+    [""] = true, 
+    [""] = true,
+    [""] = true,
+    [""] = true,
+    [""] = true,
+    [""] = true,
+    [""] = true,
+    [""] = true,
+    [""] = true,
+    [""] = true,
+    [""] = true,
+    [""] = true
+}
+
 local Players = game:GetService("Players")
 local LocalPlayer = Players.LocalPlayer
 
+if not whitelist[LocalPlayer.Name] then
+    LocalPlayer:Kick("No estas en WhiteList para usar este script")
+end
 local Players = game:GetService("Players")
 local VirtualUser = game:GetService("VirtualUser")
 
