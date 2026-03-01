@@ -1,3 +1,4 @@
+-- Whitelist de usuarios permitidos
 local whitelist = {
     ["CHIKIKAR4"] = true,
     ["14merisilu"] = true,
@@ -10,60 +11,30 @@ local whitelist = {
     ["Fuerzaleyenda123"] = true,
     ["LIT_colotixX"] = true,
     ["XxMGZemXx"] = true,
-    ["yeraimolina56"] = true,
-    [""] = true,
-    [""] = true,
-    [""] = true,
-    [""] = true,
-    [""] = true,
-    [""] = true,
-    [""] = true,
-    [""] = true,
-    [""] = true,
-    [""] = true,
-    [""] = true,
-    [""] = true,
-    [""] = true,
-    [""] = true,
-    [""] = true,
-    [""] = true, 
-    [""] = true,
-    [""] = true,
-    [""] = true,
-    [""] = true,
-    [""] = true,
-    [""] = true,
-    [""] = true,
-    [""] = true,
-    [""] = true,
-    [""] = true,
-    [""] = true
+    ["yeraimolina56"] = true
 }
+
+-- Servicios de Roblox
 local Players = game:GetService("Players")
 local LocalPlayer = Players.LocalPlayer
-
-if not whitelist[LocalPlayer.Name] then
-    LocalPlayer:Kick("No estas en WhiteList para usar este script")
-end
-
-
-local Players = game:GetService("Players")
 local VirtualUser = game:GetService("VirtualUser")
-
-local Players = game:GetService("Players")
-local player = Players.LocalPlayer
-
 local SoundService = game:GetService("SoundService")
+local ReplicatedStorage = game:GetService("ReplicatedStorage")
+local RunService = game:GetService("RunService")
+local UserInputService = game:GetService("UserInputService")
+local TweenService = game:GetService("TweenService")
+local Stats = game:GetService("Stats")
 
-local displayName = player.DisplayName
-if not displayName or displayName == "" then
-    displayName = player.Name
+-- Verificación de whitelist
+if not whitelist[LocalPlayer.Name] then
+    LocalPlayer:Kick("No estás en la WhiteList para usar este script")
+    return
 end
-local Players = game:GetService("Players")
-local player = Players.LocalPlayer
+
+-- Variables globales optimizadas
+local displayName = LocalPlayer.DisplayName or LocalPlayer.Name
 local title = ("WAR | WELCOME - %s"):format(displayName)
 local library = loadstring(game:HttpGet("https://raw.githubusercontent.com/arros-max/main.lua/refs/heads/main/Sexso.lua"))()
-
 local window = library:AddWindow(title, {
     main_color = Color3.fromRGB(0, 0, 0),
     min_size = Vector2.new(800, 870),
