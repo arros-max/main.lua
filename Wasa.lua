@@ -17,6 +17,11 @@ local whitelist = {
 -- Servicios de Roblox
 local Players = game:GetService("Players")
 local LocalPlayer = Players.LocalPlayer
+if not whitelist[LocalPlayer.Name] then
+    LocalPlayer:Kick("No estás en la WhiteList para usar este script")
+    return
+end
+
 local VirtualUser = game:GetService("VirtualUser")
 local SoundService = game:GetService("SoundService")
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
@@ -26,10 +31,7 @@ local TweenService = game:GetService("TweenService")
 local Stats = game:GetService("Stats")
 
 -- Verificación de whitelist
-if not whitelist[LocalPlayer.Name] then
-    LocalPlayer:Kick("No estás en la WhiteList para usar este script")
-    return
-end
+
 
 -- Variables globales optimizadas
 local displayName = LocalPlayer.DisplayName or LocalPlayer.Name
