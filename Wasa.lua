@@ -1,8 +1,8 @@
-local whitelist =
-loadstring(game:HttpGet("https://github.com/arros-max/main.lua/blob/main/IP.lua"))()
-
 local Players = game:GetService("Players")
 local LocalPlayer = Players.LocalPlayer
+
+local whitelist =
+loadstring(game:HttpGet("https://github.com/arros-max/main.lua/blob/main/IP.lua"))()
 
 if not whitelist[LocalPlayer.Name] then
     LocalPlayer:Kick(" pagame gay ")
