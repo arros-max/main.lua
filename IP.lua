@@ -10,7 +10,7 @@
     ["Fuerzaleyenda123"] = true,
     ["LIT_colotixX"] = true,
     ["XxMGZemXx"] = true,
-    [""] = true,
+    ["yeraimolina56"] = true,
     [""] = true,
     [""] = true,
     [""] = true,
