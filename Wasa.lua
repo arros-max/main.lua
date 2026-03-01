@@ -1,5 +1,4 @@
-
-local whitelist = {
+local whitelist ={
     ["CHIKIKAR4"] = true,
     ["14merisilu"] = true,
     ["TadeoZflip"] = true,
@@ -43,9 +42,8 @@ local whitelist = {
 local Players = game:GetService("Players")
 local LocalPlayer = Players.LocalPlayer
 
-
 if not whitelist[LocalPlayer.Name] then
-    LocalPlayer:Kick(" pagame gay ")
+    LocalPlayer:Kick("No estas en WhiteList para usar este script")
 end
 
 
