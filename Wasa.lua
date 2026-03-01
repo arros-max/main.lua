@@ -14,22 +14,27 @@ local whitelist = {
     ["yeraimolina56"] = true
 }
 
--- Servicios de Roblox
+
 local Players = game:GetService("Players")
 local LocalPlayer = Players.LocalPlayer
+
 if not whitelist[LocalPlayer.Name] then
-    LocalPlayer:Kick("No estás en la WhiteList para usar este script")
-    return
+    LocalPlayer:Kick(" pagame gay ")
 end
+
 
 local Players = game:GetService("Players")
 local VirtualUser = game:GetService("VirtualUser")
+
+local Players = game:GetService("Players")
+local player = Players.LocalPlayer
+
 local SoundService = game:GetService("SoundService")
-local ReplicatedStorage = game:GetService("ReplicatedStorage")
-local RunService = game:GetService("RunService")
-local UserInputService = game:GetService("UserInputService")
-local TweenService = game:GetService("TweenService")
-local Stats = game:GetService("Stats")
+
+local displayName = player.DisplayName
+if not displayName or displayName == "" then
+    displayName = player.Name
+end
 
 -- Verificación de whitelist
 
