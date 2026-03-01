@@ -12,7 +12,7 @@ if not displayName or displayName == "" then
 end
 local Players = game:GetService("Players")
 local player = Players.LocalPlayer
-local title = "  WAR | WELCOME - " .. displayName
+local title = "  WAR | WELCOME - %s"):format(displayName)
 local library = loadstring(game:HttpGet("https://raw.githubusercontent.com/user-Nombre123J/User-404/refs/heads/main/Library%20dragon"))()
 
 local window = library:AddWindow(title, {
