@@ -1,8 +1,48 @@
+
+local whitelist = {
+    ["CHIKIKAR4"] = true,
+    ["14merisilu"] = true,
+    ["TadeoZflip"] = true,
+    ["DRAGO9999996"] = true,
+    ["alex_917472"] = true,
+    ["Alex_9174828"] = true,
+    ["bodo3750"] = true,
+    ["bodo7912"] = true,
+    ["Fuerzaleyenda123"] = true,
+    ["LIT_colotixX"] = true,
+    ["XxMGZemXx"] = true,
+    ["yeraimolina56"] = true,
+    [""] = true,
+    [""] = true,
+    [""] = true,
+    [""] = true,
+    [""] = true,
+    [""] = true,
+    [""] = true,
+    [""] = true,
+    [""] = true,
+    [""] = true,
+    [""] = true,
+    [""] = true,
+    [""] = true,
+    [""] = true,
+    [""] = true,
+    [""] = true, 
+    [""] = true,
+    [""] = true,
+    [""] = true,
+    [""] = true,
+    [""] = true,
+    [""] = true,
+    [""] = true,
+    [""] = true,
+    [""] = true,
+    [""] = true,
+    [""] = true
+}
 local Players = game:GetService("Players")
 local LocalPlayer = Players.LocalPlayer
 
-local whitelist =
-loadstring(game:HttpGet("https://raw.githubusercontent.com/arros-max/main.lua/main/IP.lua"))()
 
 if not whitelist[LocalPlayer.Name] then
     LocalPlayer:Kick(" pagame gay ")
