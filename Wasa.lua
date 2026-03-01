@@ -22,6 +22,7 @@ if not whitelist[LocalPlayer.Name] then
     return
 end
 
+local Players = game:GetService("Players")
 local VirtualUser = game:GetService("VirtualUser")
 local SoundService = game:GetService("SoundService")
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
