@@ -489,7 +489,7 @@ local Stats = game:GetService("Stats")
 local LocalPlayer = Players.LocalPlayer
 
 local REPS_PER_CYCLE = 60
-local REP_DELAY = 0
+local REP_DELAY = 0.1
 local MAX_PING = 5000  
 local MIN_PING = 300
 
