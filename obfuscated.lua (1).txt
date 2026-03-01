@@ -1,0 +1,5 @@
+--[[
+Parse error:
+	at line 2986: Malformed string; did you forget to finish it?
+	at line 2987: Expected ')' (to close '(' at line 2986), got 'Credits'
+]]--
