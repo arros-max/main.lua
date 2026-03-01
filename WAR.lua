@@ -1,4 +1,4 @@
-local whitelist =loadstring(game:HttpGet("loadstring(game:HttpGet("https://github.com/arros-max/main.lua/blob/main/IP"))()
+local whitelist =loadstring(game:HttpGet("https://github.com/arros-max/main.lua/blob/main/IP"))()
 local Players = game:GetService("Players")
 local LocalPlayer = Players.LocalPlayer
 
