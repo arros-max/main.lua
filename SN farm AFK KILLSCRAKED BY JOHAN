@@ -1,0 +1,171 @@
+local MIN_PLAYERS = 14
+local MAX_PLAYERS = 18
+local COUNTDOWN = 60
+
+local TeleportService = game:GetService("TeleportService")
+local Players = game:GetService("Players")
+local HttpService = game:GetService("HttpService")
+local Lighting = game:GetService("Lighting")
+
+local player = Players.LocalPlayer
+local PLACE_ID = game.PlaceId
+local startTime = tick()
+
+Lighting.ClockTime = 0
+Lighting.Brightness = 1
+Lighting.Ambient = Color3.fromRGB(50, 50, 100)
+Lighting.FogEnd = 400
+
+-- GUI
+local gui = Instance.new("ScreenGui")
+gui.Name = "KillsOPbySN"
+gui.ResetOnSpawn = false
+gui.Parent = player:WaitForChild("PlayerGui")
+
+local frame = Instance.new("Frame")
+frame.Size = UDim2.new(0, 220, 0, 80)
+frame.Position = UDim2.new(0, 10, 0, 10)
+frame.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+frame.BackgroundTransparency = 0.6
+frame.BorderSizePixel = 0
+frame.Active = true
+frame.Draggable = true
+frame.Parent = gui
+
+local corner = Instance.new("UICorner")
+corner.CornerRadius = UDim.new(0, 8)
+corner.Parent = frame
+
+local titleLabel = Instance.new("TextLabel")
+titleLabel.Size = UDim2.new(1, -10, 0, 20)
+titleLabel.Position = UDim2.new(0, 5, 0, 0)
+titleLabel.BackgroundTransparency = 1
+titleLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
+titleLabel.TextScaled = true
+titleLabel.Font = Enum.Font.SourceSansBold
+titleLabel.Text = "Kills OP by SN"
+titleLabel.Parent = frame
+
+local timeLabel = Instance.new("TextLabel")
+timeLabel.Size = UDim2.new(1, -10, 0.5, -5)
+timeLabel.Position = UDim2.new(0, 5, 0, 25)
+timeLabel.BackgroundTransparency = 1
+timeLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
+timeLabel.TextScaled = true
+timeLabel.Font = Enum.Font.SourceSansBold
+timeLabel.Text = "Tiempo: 00m 00s"
+timeLabel.Parent = frame
+
+local hopLabel = Instance.new("TextLabel")
+hopLabel.Size = UDim2.new(1, -10, 0.5, -5)
+hopLabel.Position = UDim2.new(0, 5, 0.5, 25)
+hopLabel.BackgroundTransparency = 1
+hopLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
+hopLabel.TextScaled = true
+hopLabel.Font = Enum.Font.SourceSans
+hopLabel.Text = "New server"
+hopLabel.Parent = frame
+
+-- Timer
+task.spawn(function()
+	while true do
+		local elapsed = math.floor(tick() - startTime)
+		timeLabel.Text = string.format("Tiempo: %02dm %02ds", elapsed // 60, elapsed % 60)
+		task.wait(1)
+	end
+end)
+
+-- Server Hop Funcional
+local visitedServers = {}
+
+local function ServerHop()
+	local nextPageCursor
+	local foundServer
+
+	repeat
+		local url = "https://games.roblox.com/v1/games/"..PLACE_ID.."/servers/Public?sortOrder=Asc&limit=100"
+		if nextPageCursor then
+			url = url.."&cursor="..nextPageCursor
+		end
+
+		local success, response = pcall(function()
+			return HttpService:JSONDecode(game:HttpGet(url))
+		end)
+
+		if not success or not response or not response.data then break end
+
+		for _, server in ipairs(response.data) do
+			if server.playing >= MIN_PLAYERS and server.playing <= MAX_PLAYERS and not visitedServers[server.id] then
+				foundServer = server.id
+				break
+			end
+		end
+
+		nextPageCursor = response.nextPageCursor
+	until foundServer or not nextPageCursor
+
+	if foundServer then
+		visitedServers[foundServer] = true
+		TeleportService:TeleportToPlaceInstance(PLACE_ID, foundServer, player)
+	else
+		warn("No suitable server found for hop.")
+	end
+end
+
+task.spawn(function()
+	while true do
+		for i = COUNTDOWN, 1, -1 do
+			hopLabel.Text = "New server in "..i.."s"
+			task.wait(1)
+		end
+		ServerHop()
+	end
+end)
+
+-- Auto Kill / Fast Hit
+local LocalPlayer = player
+local autoKill = true
+_G.fastHitActive = true
+local playerWhitelist = {}
+
+task.spawn(function()
+	while autoKill do
+		local character = LocalPlayer.Character or LocalPlayer.CharacterAdded:Wait()
+		local rightHand = character:FindFirstChild("RightHand")
+		local leftHand = character:FindFirstChild("LeftHand")
+		local punch = LocalPlayer.Backpack:FindFirstChild("Punch")
+		if punch and not character:FindFirstChild("Punch") then
+			punch.Parent = character
+		end
+		if rightHand and leftHand then
+			for _, target in ipairs(Players:GetPlayers()) do
+				if target ~= LocalPlayer and not playerWhitelist[target.Name] then
+					local char = target.Character
+					local root = char and char:FindFirstChild("HumanoidRootPart")
+					if root then
+						pcall(function()
+							firetouchinterest(rightHand, root, 1)
+							firetouchinterest(leftHand, root, 1)
+							firetouchinterest(rightHand, root, 0)
+							firetouchinterest(leftHand, root, 0)
+						end)
+					end
+				end
+			end
+		end
+		task.wait(0.05)
+	end
+end)
+
+task.spawn(function()
+	while _G.fastHitActive do
+		local punch = LocalPlayer.Character and LocalPlayer.Character:FindFirstChild("Punch")
+		if punch then
+			if punch:FindFirstChild("attackTime") then
+				punch.attackTime.Value = 0
+			end
+			punch:Activate()
+		end
+		task.wait(0.1)
+	end
+end)
